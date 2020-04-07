@@ -1,8 +1,10 @@
 const MAIN_BOX = document.querySelector("#main-box");
 let cells;
 let gridSize = 16;
-function generateRandomRgb() {
-  var o = Math.round,
+let colorMode = false;
+
+function generateRandomRgba() {
+  let o = Math.round,
     r = Math.random,
     s = 255;
   return (
@@ -18,8 +20,20 @@ function generateRandomRgb() {
   );
 }
 
+function generateRandomGray() {
+  let o = Math.round,
+    r = Math.random,
+    s = 255;
+  let grey = o(r() * s);
+  return `rgb(${grey}, ${grey}, ${grey})`;
+}
+
 function changeColor(cell) {
-  cell.target.style.backgroundColor = generateRandomRgb();
+  if (colorMode) {
+    cell.target.style.backgroundColor = generateRandomRgba();
+    return;
+  }
+  cell.target.style.backgroundColor = generateRandomGray();
 }
 
 function makeGrid(gridSize) {
@@ -29,16 +43,21 @@ function makeGrid(gridSize) {
 
   // Square(math) gridsize to get area
   gridSize *= gridSize;
-  for (let i = 1; i <= gridSize; i++) {
+  for (let i = 0; i < gridSize; i++) {
     let cell = document.createElement("div");
     cell.classList.add("cell");
 
+    // Add new elements to grid
     MAIN_BOX.appendChild(cell);
     cell.addEventListener("mouseover", changeColor);
   }
   cells = document.querySelectorAll(".cell");
 }
 document.addEventListener("load", makeGrid(gridSize));
+
+const CLEAR_BUTTON = document.querySelector("#clear-button");
+const RESIZE_BUTTON = document.querySelector("#resize-button");
+const COLOR_BUTTON = document.querySelector("#color-mode-button");
 
 function clearGrid() {
   console.log("cleared!");
@@ -47,18 +66,31 @@ function clearGrid() {
   });
 }
 
+function removeCells() {
+  cells.forEach((cell) => {
+    MAIN_BOX.removeChild(cell);
+  });
+}
+
 function resizeGrid() {
   let gridSize = prompt("Enter grid size: ");
   if (gridSize < 1) {
+    alert("Invalid input");
     return;
   }
-  clearGrid();
+  removeCells();
   makeGrid(gridSize);
 }
 
-const CLEAR_BUTTON = document.querySelector("#clear-button");
-const RESIZE_BUTTON = document.querySelector("#resize-button");
-const COLOR_BUTTON = document.querySelector("color-mode-button");
+function changeColorMode() {
+  if (COLOR_BUTTON.textContent == "Color Mode") {
+    COLOR_BUTTON.textContent = "Grayscale Mode";
+  } else {
+    colorMode = true;
+    COLOR_BUTTON.textContent = "Color Mode";
+  }
+}
 
 CLEAR_BUTTON.addEventListener("click", clearGrid);
 RESIZE_BUTTON.addEventListener("click", resizeGrid);
+COLOR_BUTTON.addEventListener("click", changeColorMode);
