@@ -3,10 +3,6 @@ A browser version of something between a sketchpad and an Etch-A-Sketch.<br>
 From [The Odin Project's](https://www.theodinproject.com/) [curriculum](https://www.theodinproject.com/courses/web-development-101/lessons/etch-a-sketch-project)
 
 ![](screenshot.png)
-
-## Insights
-* <strong>April 07, 2020</strong>
-  * I made the repo for this project 2 days earlier, April 5. I started working on it yesterday(April 6) afternoon, and I finished it just now. I didn't have much trouble finishing this project, or maybe that's just my brain telling me it was easy because I finished it. Maybe because I'm now comfortable in manipulating DOM elements. Nonetheless, this was a good project to exercise my DOM manipulation skills.
   
 ## To-do
 * Do the 2nd sentence of the optional part in [The Odin Project's curriculum](https://www.theodinproject.com/courses/web-development-101/lessons/etch-a-sketch-project)
